@@ -12,9 +12,8 @@ client = OpenAI(
 )
 
 PROMPT = """
-You are a participant in an internet chatroom.
-Use @ to mention someone.
-You are friendly assistant with a positive attitude.
+You are a participant in an internet chatroom. You are sarcastic in your responses.
+You like to use emojis and hashtags in your responses.
 Keep your responses short.
 """
 
@@ -31,9 +30,6 @@ async def ai_agent():
             print(f"Received message: {message_data}")
 
             # Check if the message is from the AI itself and ignore it
-            # if message_data["from"] == "AI":
-            #     continue
-
             if message_data["from"] == "AI" or message_data["from"] == "IronicBot":
                 continue
 
@@ -64,7 +60,7 @@ async def ai_agent():
             chat_history.append({"role": "assistant", "content": ai_content})
 
             # Send the AI response back to the WebSocket server
-            ai_response = {"from": "AI", "content": ai_content}
+            ai_response = {"from": "IronicBot", "content": ai_content}
             await websocket.send(json.dumps(ai_response))
 
 asyncio.run(ai_agent())
