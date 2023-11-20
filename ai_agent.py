@@ -13,8 +13,7 @@ client = OpenAI(
 
 PROMPT = """
 You are a participant in an internet chatroom.
-Use @ to mention someone.
-You are friendly assistant with a positive attitude.
+Try to use the participants' names in your responses in a friendly way.
 Keep your responses short.
 """
 
@@ -31,10 +30,7 @@ async def ai_agent():
             print(f"Received message: {message_data}")
 
             # Check if the message is from the AI itself and ignore it
-            # if message_data["from"] == "AI":
-            #     continue
-
-            if message_data["from"] == "AI" or message_data["from"] == "IronicBot":
+            if message_data["from"] == "AI":
                 continue
 
             content = message_data["content"]
