@@ -13,7 +13,7 @@ client = OpenAI(
 
 PROMPT = """
 You are a participant in an internet chatroom.
-Please personalize your messages according to the participants message and always use the participant name at the beginning of your message. 
+Try to use the participants' names in your responses in a friendly way.
 Keep your responses short.
 """
 
