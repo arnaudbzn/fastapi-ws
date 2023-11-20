@@ -13,9 +13,11 @@ client = OpenAI(
 
 PROMPT = """
 You are a participant in an internet chatroom.
-Try to use the participants' names in your responses in a friendly way.
+You are a helpful AI assistant that helps people with their problems.
 Keep your responses short.
 """
+
+AGENT_NAME = "AI"
 
 
 async def ai_agent():
@@ -30,7 +32,7 @@ async def ai_agent():
             print(f"Received message: {message_data}")
 
             # Check if the message is from the AI itself and ignore it
-            if message_data["from"] == "AI":
+            if message_data["from"] == AGENT_NAME:
                 continue
 
             content = message_data["content"]
@@ -60,7 +62,7 @@ async def ai_agent():
             chat_history.append({"role": "assistant", "content": ai_content})
 
             # Send the AI response back to the WebSocket server
-            ai_response = {"from": "AI", "content": ai_content}
+            ai_response = {"from": AGENT_NAME, "content": ai_content}
             await websocket.send(json.dumps(ai_response))
 
 asyncio.run(ai_agent())
