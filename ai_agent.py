@@ -5,13 +5,15 @@ import json
 from openai import OpenAI
 
 client = OpenAI(
-    api_key="Your API Key",
+    # Replace with your OpenAI API key (not needed with LM Studio),
+    api_key="sk-...",
+    # Adjust the OpenAI API compatible server address if needed
     base_url="http://localhost:1234/v1",
 )
 
 PROMPT = """
-You are a participant in an internet chatroom. 
-Please respond using the participant name. 
+You are a participant in an internet chatroom.
+Please personalize your messages according to the participants message and always use the participant name at the beginning of your message. 
 Keep your responses short.
 """
 
@@ -43,6 +45,7 @@ async def ai_agent():
             # Send the chat history to OpenAI and get a response
             response = client.chat.completions.create(
                 model="gpt-3.5-turbo",  # Specify the model here
+                temperature=0.7,  # Adjust the temperature here for more or less random responses
                 messages=[
                     {"role": "system", "content": PROMPT},
                     *chat_history  # Include the entire chat history
@@ -60,4 +63,4 @@ async def ai_agent():
             ai_response = {"from": "AI", "content": ai_content}
             await websocket.send(json.dumps(ai_response))
 
-asyncio.get_event_loop().run_until_complete(ai_agent())
+asyncio.run(ai_agent())

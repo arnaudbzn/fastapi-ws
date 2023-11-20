@@ -1,4 +1,4 @@
-# Room Web Socket server
+# Room WebSockets server
 from fastapi import FastAPI, WebSocket
 from fastapi.responses import HTMLResponse
 
