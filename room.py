@@ -1,51 +1,19 @@
 # Room WebSockets server
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, Request, WebSocket
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
-html = """
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Chat</title>
-    </head>
-    <body>
-        <h1>WebSocket Chat</h1>
-        <form action="" onsubmit="sendMessage(event)">
-            <input type="text" id="username" autocomplete="off" placeholder="username" value="John"/>
-            <input type="text" id="messageText" autocomplete="off" placeholder="Type your message..."/>
-            <button>Send</button>
-        </form>
-        <ul id='messages'>
-        </ul>
-        <script>
-            var ws = new WebSocket("ws://localhost:8000/ws");
-            ws.onmessage = function(event) {
-                var messageData = JSON.parse(event.data)
-                console.log("Message received", messageData)
-                var messages = document.getElementById('messages')
-                var message = document.createElement('li')
-                var content = document.createTextNode(messageData.from + ': ' + messageData.content)
-                message.appendChild(content)
-                messages.appendChild(message)
-            };
-            function sendMessage(event) {
-                var messageInput = document.getElementById("messageText")
-                var usernameInput  = document.getElementById("username")
-                ws.send(JSON.stringify({ from: usernameInput.value, content: messageInput.value}))
-                messageInput.value = ''
-                event.preventDefault()
-            }
-        </script>
-    </body>
-</html>
-"""
+templates = Jinja2Templates(directory="templates")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-@app.get("/")
-async def get():
-    return HTMLResponse(html)
+@app.get("/", response_class=HTMLResponse)
+async def get(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 # Store connected websockets
 connected_websockets = set()
