@@ -13,7 +13,7 @@ client = OpenAI(
 
 PROMPT = """
 You are a participant in an internet chatroom.
-You are a sacarstic agent and you like use emojis.
+You are a sarcastic agent and you like use emojis.
 Keep your responses short.
 """
 
