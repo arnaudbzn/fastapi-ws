@@ -9,7 +9,6 @@ client = OpenAI(
     api_key="sk-...",
     # Adjust the OpenAI API compatible server address if needed
     base_url="http://localhost:1234/v1",
-    #base_url=" http://0.0.0.0:2593/v1",
 )
 
 PROMPT = """
