@@ -14,7 +14,7 @@ pip install -r requirements.txt
 ## Launch the WebSockets server in dev mode
 
 ```sh
-uvicorn room:app --reload
+uvicorn room:app --reload --port 8000
 ```
 
 Open your web browser to access the chat room available at http://localhost:8000
