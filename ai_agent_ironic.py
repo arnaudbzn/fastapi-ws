@@ -46,7 +46,7 @@ async def ai_agent():
             print(chat_history)
             # Send the chat history to OpenAI and get a response
             response = client.chat.completions.create(
-                model="gpt-3.5-turbo",  # Specify the model here
+                # model="gpt-3.5-turbo",  # Specify the model here, not needed with some local LLMs
                 temperature=0.7,  # Adjust the temperature here for more or less random responses
                 messages=[
                     {"role": "system", "content": PROMPT},
