@@ -16,7 +16,7 @@ async def get(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 # Store connected websockets
-connected_websockets = set()
+connected_websockets = set[WebSocket]()
 
 
 @app.websocket("/ws")
@@ -26,11 +26,11 @@ async def websocket_endpoint(websocket: WebSocket):
 
     try:
         while True:
-            data = await websocket.receive_text()
+            data = await websocket.receive_json(),
             print(f"Received message: {data}")
             # Broadcast message to all connected clients
             for ws in connected_websockets:
-                await ws.send_text(data)
+                await ws.send_json(data)
 
     except Exception as e:
         print(f"Error: {e}")

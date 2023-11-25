@@ -8,7 +8,7 @@ client = OpenAI(
     # Replace with your OpenAI API key (not needed with LM Studio),
     api_key="sk-...",
     # Adjust the OpenAI API compatible server address if needed
-    base_url="http://localhost:1234/v1",
+    base_url="http://localhost:1234/v1",  # We use LM Studio API endpoint here
 )
 
 PROMPT = """
